@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navigation Bar Variations</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #242323;
+      color: #fff;
+    }
+
+    .nav-container {
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    /* ------------------- NAV 1 ------------------- */
+    
+.nav1 {
+  background-color: #e4e4e6;
+  padding: 15px 0;
+  border-radius: 5px;
+}
+
+.nav1 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 40px ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav1 a {
+  text-decoration: none;
+  color: #000; /* Dark text for light background */
+  padding: 8px 16px;
+  position: relative;
+  font-weight: bold;
+}
+
+.nav1 a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: #254bf6;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav1 a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav1 .login-btn {
+  background-color: #254bf6;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.nav1 .login-btn:hover{
+  background-color: #061760;
+}
+
+    /* ------------------- NAV 2 ------------------- */
+.nav2 a:hover{
+  background-color: #1eae69;
+  border-radius: 5px;
+}
+.nav2 .login-btn{
+  background-color: #1b9d5e;
+  color: #fff;
+  width: 100px;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: 0px;
+  border-radius: 5px;
+}
+.nav2 .login-btn:hover{
+  background-color: #063c21;
+  border-radius: 5px;
+  border: 1px solid rgb(214, 214, 214);
+}
+   .nav2 {
+  background-color: #006b37;
+  padding: 20px;
+  width: 200px;
+  
+  border-radius: 5px;
+}
+.nav2 ul{
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+.nav2 li{
+  margin: 12px;
+}
+.nav2 a{
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  padding: 10px;
+  width: 100%;
+}
+
+
+  
+    /* ------------------- NAV 3 ------------------- */
+   /* ------------------- NAV 3 ------------------- */
+.nav3 {
+  background-color: #1e1e2f;  /* 🔹 Dark background */
+  padding: 15px 30px;
+  border-radius: 8px;
+}
+
+.nav3 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav3 li {
+  position: relative;
+  margin-right: 20px;
+}
+
+.nav3 a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 16px;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.nav3 a:hover {
+  background-color: #333654;
+  border-radius: 5px;
+}
+
+/* 🔽 Dropdown Container */
+.nav3 .dropdown-container {
+  display: none;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background-color: #292a3a;
+  padding: 10px 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.nav3 .dropdown:hover .dropdown-container {
+  display: block;
+}
+
+.nav3 .dropdown-container a {
+  display: block;
+  padding: 8px 20px;
+  color: white;
+  white-space: nowrap;
+}
+
+.nav3 .dropdown-container a:hover {
+  background-color: #3a3d5e;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Variation 1 -->
+  <div class="nav-container">
+    <h1>Variation 1: Horizontal with Underline Hover</h1>
+    <nav class="nav1">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><button class="login-btn">Login</button></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Variation 2 -->
+  <div class="nav-container">
+    <h1>Variation 2: Vertical with Hover Highlight</h1>
+    <nav class="nav2">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><button class="login-btn">Login</button></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Variation 3 -->
+  <div class="nav-container">
+    <h1>Variation 3: Horizontal with Dropdown</h1>
+    <nav class="nav3">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a href="#">About</a>
+          <div class="dropdown-container">
+            <a href="#">Our Story</a>
+            <a href="#">Team</a>
+            <a href="#">Careers</a>
+          </div>
+        </li>
+        <li><a href="#">Products</a></li>
+        <li><button class="login-btn">Login</button></li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
+</html>
