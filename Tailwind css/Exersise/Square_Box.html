@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rotating Square Box</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    /* Custom animation for continuous rotation */
+    @keyframes spin-continuous {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .spin-continuous {
+      animation: spin-continuous 4s  linear infinite;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-32 h-32 bg-blue-500 border-4 border-gray-800 p-4 spin-continuous"></div>
+</body>
+</html>
