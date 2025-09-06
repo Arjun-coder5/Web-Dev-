@@ -57,7 +57,7 @@ popularTeas.pop();
 */
 
 let topCities = ["Berlin", "Singapore", "New York"];
-let hardCopyCities = [...topCities];
+let hardCopyCities = [topCities];
 // let hardCopyCities = topCities.slice();
 topCities.pop();
 // console.log(hardCopyCities);
@@ -67,7 +67,7 @@ topCities.pop();
    Merge these two arrays into a new array named `worldCities`.
 */
 
-let europeanCities = ["Paris", "Rome"];
+let europeanCities = ["Paris", "Rome"]; 
 let asianCities = ["Tokyo", "Bangkok"];
 let worldCities = europeanCities.concat(asianCities);
 
