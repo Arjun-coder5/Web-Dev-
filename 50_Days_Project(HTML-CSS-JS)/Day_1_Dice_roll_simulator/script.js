@@ -1,90 +1,27 @@
-const rollBtn = document.getElementById("roll-button");
-const resetBtn = document.getElementById("reset-button");
-const dice1El = document.getElementById("dice1");
-const dice2El = document.getElementById("dice2");
-const score1El = document.getElementById("score1");
-const score2El = document.getElementById("score2");
-const winnerText = document.getElementById("winner-text");
-const turnText = document.getElementById("turn-text");
+let scores = [0, 0];
+let turns = [5, 5];
+let currentPlayer = 0;
 
-const player1El = document.getElementById("player1");
-const player2El = document.getElementById("player2");
+const diceEl = document.getElementById("dice");
+const statusEl = document.getElementById("status");
+const rollBtn = document.getElementById("rollBtn");
+const resetBtn = document.getElementById("resetBtn");
 
-const diceFaces = ["&#9856;", "&#9857;", "&#9858;", "&#9859;", "&#9860;", "&#9861;"];
+const scoreEls = [document.getElementById("score1"), document.getElementById("score2")];
+const turnEls = [document.getElementById("turns1"), document.getElementById("turns2")];
+const playerEls = [document.getElementById("p1"), document.getElementById("p2")];
 
-let score1 = 0;
-let score2 = 0;
-let currentPlayer = 1;
-const targetScore = 20;
+const diceSound = document.getElementById("diceSound");
+const winSound = document.getElementById("winSound");
 
-// Roll button
-rollBtn.addEventListener("click", () => {
-  const diceEl = currentPlayer === 1 ? dice1El : dice2El;
-  diceEl.classList.add("roll-animation");
+const diceFaces = ["⚀","⚁","⚂","⚃","⚄","⚅"];
 
-  setTimeout(() => {
-    diceEl.classList.remove("roll-animation");
-
-    const roll = Math.floor(Math.random() * 6);
-    diceEl.innerHTML = diceFaces[roll];
-    const points = roll + 1;
-
-    if (currentPlayer === 1) {
-      score1 += points;
-      score1El.innerText = `Score: ${score1}`;
-    } else {
-      score2 += points;
-      score2El.innerText = `Score: ${score2}`;
-    }
-
-    // Check winner
-    if (score1 >= targetScore || score2 >= targetScore) {
-      declareWinner(score1 >= targetScore ? "Player 1" : "Player 2");
-      return;
-    }
-
-    // Switch turn
-    currentPlayer = currentPlayer === 1 ? 2 : 1;
-    turnText.innerText = `Player ${currentPlayer}'s Turn`;
-    player1El.classList.toggle("active", currentPlayer === 1);
-    player2El.classList.toggle("active", currentPlayer === 2);
-  }, 1000);
-});
-
-// Reset button
-resetBtn.addEventListener("click", () => {
-  score1 = 0;
-  score2 = 0;
-  currentPlayer = 1;
-  dice1El.innerHTML = "&#9856;";
-  dice2El.innerHTML = "&#9856;";
-  score1El.innerText = "Score: 0";
-  score2El.innerText = "Score: 0";
-  winnerText.innerText = "";
-  turnText.innerText = "Player 1's Turn";
-  player1El.classList.add("active");
-  player2El.classList.remove("active");
-  stopConfetti();
-});
-
-// Winner
-function declareWinner(player) {
-  winnerText.innerText = `🏆 ${player} Wins the Game! 🏆`;
-  rollBtn.disabled = true;
-  startConfetti();
-}
-
-// 🎉 Confetti effect
+// 🎉 Confetti setup
 const confettiCanvas = document.getElementById("confetti");
 const ctx = confettiCanvas.getContext("2d");
+confettiCanvas.width = window.innerWidth;
+confettiCanvas.height = window.innerHeight;
 let confettiPieces = [];
-
-function resizeCanvas() {
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 
 function startConfetti() {
   confettiPieces = Array.from({ length: 200 }, () => ({
@@ -93,7 +30,6 @@ function startConfetti() {
     r: Math.random() * 6 + 2,
     d: Math.random() * 0.5 + 0.5,
     color: `hsl(${Math.random() * 360},100%,50%)`,
-    tilt: Math.random() * 10 - 10
   }));
   requestAnimationFrame(updateConfetti);
 }
@@ -115,5 +51,76 @@ function updateConfetti() {
 function stopConfetti() {
   confettiPieces = [];
   ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-  rollBtn.disabled = false;
 }
+
+// 🎲 Dice Roll
+function rollDice() {
+  if (turns[0] === 0 && turns[1] === 0) {
+    declareWinner();
+    return;
+  }
+
+  diceEl.classList.add("roll-animation");
+  diceSound.play();
+
+  setTimeout(() => {
+    diceEl.classList.remove("roll-animation");
+
+    const dice = Math.floor(Math.random() * 6) + 1;
+    diceEl.innerText = diceFaces[dice - 1];
+
+    scores[currentPlayer] += dice;
+    scoreEls[currentPlayer].innerText = scores[currentPlayer];
+
+    turns[currentPlayer]--;
+    turnEls[currentPlayer].innerText = turns[currentPlayer];
+
+    statusEl.innerText = `Player ${currentPlayer + 1} rolled ${dice}`;
+
+    playerEls[0].classList.remove("active");
+    playerEls[1].classList.remove("active");
+    currentPlayer = currentPlayer === 0 ? 1 : 0;
+
+    if (turns[currentPlayer] > 0) {
+      playerEls[currentPlayer].classList.add("active");
+      statusEl.innerText += ` → Now Player ${currentPlayer + 1}'s Turn`;
+    }
+
+    if (turns[0] === 0 && turns[1] === 0) {
+      declareWinner();
+    }
+  }, 1000);
+}
+
+function declareWinner() {
+  rollBtn.disabled = true;
+  winSound.play();
+  startConfetti();
+
+  if (scores[0] > scores[1]) {
+    statusEl.innerText = "🏆 Player 1 Wins!";
+  } else if (scores[1] > scores[0]) {
+    statusEl.innerText = "🏆 Player 2 Wins!";
+  } else {
+    statusEl.innerText = "🤝 It's a Draw!";
+  }
+}
+
+function resetGame() {
+  scores = [0, 0];
+  turns = [5, 5];
+  currentPlayer = 0;
+  scoreEls[0].innerText = 0;
+  scoreEls[1].innerText = 0;
+  turnEls[0].innerText = 5;
+  turnEls[1].innerText = 5;
+  diceEl.innerText = "⚀";
+  rollBtn.disabled = false;
+  playerEls[0].classList.add("active");
+  playerEls[1].classList.remove("active");
+  statusEl.innerText = "Player 1's Turn";
+  stopConfetti();
+}
+
+rollBtn.addEventListener("click", rollDice);
+resetBtn.addEventListener("click", resetGame);
