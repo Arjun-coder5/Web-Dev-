@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Battle Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🎲 Two Player Dice Battle 🎲</h1>
+  <h2 id="turn-text">Player 1's Turn</h2>
+
+  <div class="players">
+    <div class="player" id="player1">
+      <h2>Player 1</h2>
+      <div class="dice" id="dice1">&#9856;</div>
+      <p class="score" id="score1">Score: 0</p>
+    </div>
+
+    <div class="player" id="player2">
+      <h2>Player 2</h2>
+      <div class="dice" id="dice2">&#9856;</div>
+      <p class="score" id="score2">Score: 0</p>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button id="roll-button">Roll Dice</button>
+    <button id="reset-button" class="clear">Reset Game</button>
+  </div>
+
+  <h2 id="winner-text"></h2>
+
+  
+  <canvas id="confetti"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
