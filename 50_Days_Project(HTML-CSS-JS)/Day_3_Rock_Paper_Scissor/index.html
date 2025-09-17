@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock-Paper-Scissor Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Rock Paper Scissor Battle 🔥</h1>
+    <p>Choose your move to fight the computer</p>
+    
+    <div class="choices">
+      <button class="choice-btn" id="rock">&#X1F44A;</button>
+      <button class="choice-btn" id="paper">&#x1f590;</button>
+      <button class="choice-btn" id="scissor">&#x270C;</button>
+    </div>
+
+    <p class="countdown" id="countdown"></p>
+    <p class="result" id="result">Start Playing!</p>
+
+    <!-- Health Bars -->
+    <div class="health-container">
+      <div class="health">
+        You ❤️: <progress id="user-health" max="5" value="5"></progress>
+      </div>
+      <div class="health">
+        Computer 🤖: <progress id="computer-health" max="5" value="5"></progress>
+      </div>
+    </div>
+
+    <button id="reset-btn">🔄 Reset Game</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
